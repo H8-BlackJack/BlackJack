@@ -10,7 +10,7 @@
       </b-form>
     </b-card>
   </div>
-  <div>
+  <div v-for="room in rooms" :key="room.id">
     <b-card>
       <b-card class="">
         <b-card title="Card Title" style="width: 20rem;" class="mb-2">
@@ -30,6 +30,7 @@ export default {
   data() {
     return {
       text: '',
+      rooms: null
     }
   },
   methods: {
@@ -48,6 +49,9 @@ export default {
         console.log(err);
       })
     }
+  },
+  created(){
+    this.$store.dispatch('getRooms')
   }
 }
 </script>
