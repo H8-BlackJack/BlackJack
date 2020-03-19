@@ -1,4 +1,5 @@
 const { User, Room } = require('../models')
+const axios = require('axios')
 
 class RoomController {
   static get(req, res, next) {
@@ -13,16 +14,40 @@ class RoomController {
   }
   static add(req, res, next) {
     const { name } = req.body
-    Room
-      .create({
-        name
+    axios({
+      url: "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
+    })
+      .then(({ data }) => {
+        const deckId = data.deck_id
+        console.log(deckId)
+        return Room.create({
+          name,
+          deck_id: deckId
+        })
       })
       .then(data => {
+        console.log(data)
         res.status(201).json(data)
       })
-      .catch(err => {
-        res.status(400).json(err)
+      .catch(({ response }) => {
+        console.log(response)
       })
+    // try {
+    //   const { name } = req.body
+    //   let { data } = await axios({
+    //     url: "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
+    //   })
+    //   let response = await Room
+    //     .create({
+    //       name,
+    //       deck_id: data.deck_id
+    //     })
+    //   console.log(data);
+
+    //   res.status(201).json(response)
+    // } catch (error) {
+    //   res.status(400).json(error)
+    // }
   }
 
   static destroy(req, res, next) {

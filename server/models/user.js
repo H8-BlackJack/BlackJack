@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
   }, { sequelize });
   User.associate = function (models) {
-    User.belongsTo(models.Room)
+    // User.belongsTo(models.Room)
   };
   return User;
 };

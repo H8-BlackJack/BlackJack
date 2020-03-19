@@ -18,12 +18,15 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Name cannot empty.'
         }
       },
+    },
+    deck_id: {
+      type: DataTypes.STRING,
     }
   }, { sequelize })
     ;
   Room.associate = function (models) {
     // associations can be defined here
-    Room.hasMany(models.User)
+    // Room.hasMany(models.User)
   };
   return Room;
 };
