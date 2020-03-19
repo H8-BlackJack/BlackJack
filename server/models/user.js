@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, { sequelize });
   User.associate = function (models) {
-    User.belongsTo(models.Room)
+    // User.belongsTo(models.Room)
   };
   return User;
 };
