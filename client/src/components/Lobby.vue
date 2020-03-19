@@ -5,7 +5,7 @@
       <b-form @submit.prevent="createRoom">
         <b-form-input v-model="text" placeholder="Create New Room"></b-form-input>
         <div class="d-flex justify-content-center mt-2">
-          <b-button>Create</b-button>
+          <b-button @click.prevent="createRoom">Create</b-button>
         </div>
       </b-form>
     </b-card>
