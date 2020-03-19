@@ -5,7 +5,14 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model { }
 
   User.init({
-    name: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull : false,
+      validate : {
+        notEmpty : { msg: 'Name cannot be empty' },
+        notNull : { msg: 'Name cannot be empty' }
+      }
+    }
   }, { sequelize });
   User.associate = function (models) {
     User.belongsTo(models.Room)

@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
   
   Room.init({
     name: DataTypes.STRING,
-    UserId: DataTypes.STRING
   }, { sequelize })
     ;
   Room.associate = function(models) {
