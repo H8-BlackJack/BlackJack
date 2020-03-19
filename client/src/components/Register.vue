@@ -43,7 +43,23 @@ export default {
   },
   methods: {
     register(){
-      
+     this.$axios({
+        method : 'post',
+        url : '/users',
+        data : {
+          name : this.name
+        }
+      })
+      .then(data=>{
+        localStorage.setItem('name', data.data.name)
+        localStorage.setItem('id', data.data.id)
+        this.$router.push({
+          path : '/lobby'
+        })
+      })
+      .catch(err=>{
+        console.log(err)
+      })
     }
   }
 }

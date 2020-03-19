@@ -26,11 +26,12 @@ class RoomController {
         })
       })
       .then(data => {
-        console.log(data)
+        console.log(data, "theeemmm")
         res.status(201).json(data)
       })
-      .catch(({ response }) => {
+      .catch((response) => {
         console.log(response)
+        res.send(response)
       })
     // try {
     //   const { name } = req.body
