@@ -5,15 +5,15 @@
       <b-form>
         <b-form-input v-model="text" placeholder="Create New Room"></b-form-input>
         <div class="d-flex justify-content-center mt-2">
-          <b-button>Create</b-button>
+          <b-button @click="createRoom">Create</b-button>
         </div>
       </b-form>
     </b-card>
   </div>
-  <div>
+  <div v-for="room in rooms" :key="room.id">
     <b-card>
       <b-card class="">
-        <b-card title="Card Title" tag="Room" style="width: 20rem;" class="mb-2">
+        <b-card title="Card Title" style="width: 20rem;" class="mb-2">
           <div class="d-flex justify-content-center">
             <b-button href="#" variant="primary">Enter</b-button>
           </div>
@@ -27,6 +27,32 @@
 <script>
 export default {
   name: "Lobby",
+  data() {
+    return {
+      text: '',
+      rooms: null
+    }
+  },
+  methods: {
+    createRoom() {
+      this.$axios({
+        url: '/rooms',
+        method: "post",
+        data:{
+          name: this.text
+        }
+      })
+      .then(data => {
+        this.$store.dispatch('getRooms')
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+  },
+  created(){
+    this.$store.dispatch('getRooms')
+  }
 }
 </script>
 

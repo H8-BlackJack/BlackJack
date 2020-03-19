@@ -19,11 +19,11 @@ export default new Vuex.Store({
         method: "post"
       })
         .then(({ data }) => {
-        context.commit("rooms", data)
+          context.commit("rooms", data);
         })
         .catch(({ response }) => {
-        console.log(response)
-      })
+          console.log(response);
+        });
     }
   },
   modules: {}
