@@ -53,7 +53,7 @@ export default {
     },
     enterRoom(id){
       this.$router.push({
-        path : `/game/${id}`
+        path : `/waiting/${id}`
       })
     }
   },
