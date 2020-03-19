@@ -2,8 +2,9 @@ const router = require('express').Router()
 const { User, Room } = require('../models')
 const axios = require('axios')
 
-router.get('/', (req, res, next) => {
+router.post('/', (req, res, next) => {
   const { idRoom } = req.body
+  console.log(req.body)
   Room
     .findOne({
       where: {
@@ -11,6 +12,7 @@ router.get('/', (req, res, next) => {
       }
     })
     .then(data => {
+      console.log(data, 'ini data rooms')
       return axios({
         method: "GET",
         url: `https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=1`
