@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="waiting">
     <div v-for="player in players" :key="player.id">
     <b-card>
       {{player.name}}
@@ -26,5 +26,7 @@ export default {
 </script>
 
 <style>
-
+.waiting{
+  
+}
 </style>

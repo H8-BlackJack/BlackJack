@@ -1,5 +1,6 @@
 <template>
     <div class="wrap d-flex justify-content-center align-items-center">
+        <h3 style="color : white">Welcome To</h3>
     <div class="middle">
       <b-container class="">
         <b-card class="rounded">
