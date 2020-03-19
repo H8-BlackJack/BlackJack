@@ -4,6 +4,7 @@ import Main from '../views/Main.vue'
 import Register from "../components/Register.vue";
 import Lobby from "../components/Lobby.vue";
 import Game from "../components/Game.vue";
+import Waiting from "../components/WaitingRoom.vue";
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
         path: "/lobby",
         name: "Lobby",
         component: Lobby
+      },
+      {
+        path: "/waiting/:id",
+        name: "Waiting",
+        component: Waiting
       },
       {
         path: "/game/:id",
