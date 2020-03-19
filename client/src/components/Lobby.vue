@@ -1,22 +1,23 @@
 <template>
-<div>
+<div class="wrap">
   <div class="d-flex justify-content-center my-4">
-    <b-card>
+    <b-card id="card">
       <b-form @submit.prevent="createRoom">
         <b-form-input v-model="text" placeholder="Create New Room"></b-form-input>
         <div class="d-flex justify-content-center mt-2">
-          <b-button @click.prevent="createRoom">Create</b-button>
+          <b-button @click.prevent="createRoom" class="btn btn-dark">Create</b-button>
         </div>
       </b-form>
     </b-card>
   </div>
   <div>
-    <b-card >
-      <b-card>
+    <b-card id="card">
+      <h3 style="color : white;">Blackjack Room List</h3>
+      <b-card id="card">
         <div class="row justify-content-around">
-        <b-card :title="room.name" style="width: 18rem;" class="mb-2 mx-1 text-center" v-for="room in rooms" :key="room.id">
+        <b-card :title="room.name" style="width: 18rem; background-color : rgba(0, 0, 0, 0.438); color : white" class="mb-2 mx-1 text-center" v-for="room in rooms" :key="room.id">
           <div class="d-flex justify-content-center">
-            <b-button href="#" variant="primary" @click="enterRoom(room.id)">Enter</b-button>
+            <b-button href="#" variant="danger" @click="enterRoom(room.id)">Enter</b-button>
           </div>
         </b-card>
         </div>
@@ -46,6 +47,7 @@ export default {
       .then(data => {
         console.log(data);
         this.$store.dispatch('getRooms')
+        this.text = ''
       })
       .catch(err => {
         console.log(err);
@@ -70,5 +72,24 @@ export default {
 </script>
 
 <style>
-
+  .wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #8E0E00;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #1F1C18, #8E0E00);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background-image: url('../assets/lobby.jpg') */
+}
+#card {
+  background-color: rgba(142, 14, 0, 0.315)
+}
+.row{
+  background-color: rgba(0, 0, 0, 0.438)
+}
+#room{
+  background-color: rgba(0, 0, 0, 0.438)
+}
 </style>
