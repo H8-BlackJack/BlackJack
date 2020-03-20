@@ -22,6 +22,7 @@
       </b-card>
       <b-card>
         <h1 class="text-center">Total Value : {{points}}</h1>
+        <h1 class="text-center" v-if="lose"> {{text}}</h1>
       </b-card>
     </b-container>
   </div>
@@ -35,6 +36,8 @@ export default {
       cards: [],
       points: null,
       gabolehlagi: true,
+      lose: false,
+      text: "Oopss.. You lose!"
       gamedone: false,
       losegame: false,
     }
@@ -72,6 +75,8 @@ export default {
           }
         })
         if (this.points > 21) {
+          this.points = 0
+          this.lose = true
           this.gabolehlagi=false
           this.gamedone = true
           this.losegame = true
