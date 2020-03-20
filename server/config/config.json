@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "20082009",
+    "database": "H8-BlackJack",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
