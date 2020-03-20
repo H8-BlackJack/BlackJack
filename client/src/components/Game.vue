@@ -14,12 +14,15 @@
       </b-card>
       <b-card  style="background-color:rgba(0, 0, 0, 0.438)">
         <div class="d-flex justify-content-center">
+          <h4 style="color:white" v-if="losegame">You lost!</h4><br>
         <b-button variant="primary" class="mx-1" v-if="gabolehlagi" @click="drawCard()">Draw</b-button>
         <b-button variant="danger" class="mx-1" v-if="gabolehlagi" @click="done()">Done</b-button>
+        <b-button variant="secondary" class="mx-1" v-if="gamedone" @click="back()">Return to Lobby</b-button>
         </div>
       </b-card>
       <b-card>
         <h1 class="text-center">Total Value : {{points}}</h1>
+        <h1 class="text-center" v-if="lose"> {{text}}</h1>
       </b-card>
     </b-container>
   </div>
@@ -33,14 +36,25 @@ export default {
       cards: [],
       points: null,
       gabolehlagi: true,
+// <<<<<<< HEAD
       doneCount: 0,
       totalPlayer: this.$store.state.listPlayer,
+// =======
+      lose: false,
+      text: "Oopss.. You lose!",
+      gamedone: false,
+      losegame: false,
+// >>>>>>> e35522b74fc002d26fed9cc3daeeba4f225680fb
     }
   },
   methods: {
     done(){
       this.gabolehlagi = false
+// <<<<<<< HEAD
       this.doneCount += 1
+// =======
+      this.gamedone = true
+// >>>>>>> e35522b74fc002d26fed9cc3daeeba4f225680fb
     },
     drawCard(){
         this.$axios({
@@ -70,13 +84,20 @@ export default {
           }
         })
         if (this.points > 21) {
+          this.points = 0
+          this.lose = true
           this.gabolehlagi=false
+          this.gamedone = true
+          this.losegame = true
         }
       })
       .catch(({response})=>{
         console.log(response);
       })
-    }
+    },
+    back() {
+      this.$router.push('/lobby')
+    },
   },
   created() {
    this.drawCard() 

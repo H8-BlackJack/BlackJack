@@ -1,12 +1,18 @@
 <template>
   <div id="waiting">
-    <h2 style="color : white; padding-top:30px; padding-bottom:10px; text-align:center">Room {{this.$route.params.id}} Player List</h2>
-    <div v-for="player in players" :key="player.id">
+    <h2  style="color : white; padding-top:30px; padding-bottom:10px; text-align:center; backgtound-radius: 50px;">Room {{this.$route.params.id}} Player List</h2>
+    <div class="container" v-for="player in players" :key="player.id">
     <b-card style="color:white; background-color: black; font-size : 40px">
-      {{player}}
+      <h2>{{player}}</h2>
     </b-card>
     </div>
+<!-- <<<<<<< HEAD
+======= -->
+    <div class="container">
     <b-button @click.prevent="playGame" v-if="players.length >=2" class="mt-3 ml-3 btn btn-warning">PLAY</b-button>
+    <!-- <b-button  @click.prevent="playGame" class="mt-3 ml-3 btn btn-warning">PLAY</b-button> -->
+    </div>
+<!-- >>>>>>> e35522b74fc002d26fed9cc3daeeba4f225680fb -->
   </div>
 </template>
 
