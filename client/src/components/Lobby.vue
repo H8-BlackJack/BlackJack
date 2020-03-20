@@ -15,9 +15,9 @@
       <h3 style="color : white;">Blackjack Room List</h3>
       <b-card id="card">
         <div class="row justify-content-around">
-        <b-card :title="room.name" style="width: 18rem; background-color : rgba(0, 0, 0, 0.438); color : white" class="mb-2 mx-1 text-center" v-for="room in rooms" :key="room.id">
+        <b-card :title="room.name" style="width: 18rem; background-color : rgba(0, 0, 0, 0.438); color : white" class="mb-2 mx-1 text-center cards-body" v-for="room in rooms" :key="room.id">
           <div class="d-flex justify-content-center">
-            <b-button href="#" variant="danger" @click="enterRoom(room.id)">Enter</b-button>
+            <b-button href="#" variant="danger" @click="enterRoom(room.id)" class="cardsBtn">Enter</b-button>
           </div>
         </b-card>
         </div>
@@ -108,5 +108,18 @@ export default {
 }
 #room{
   background-color: rgba(0, 0, 0, 0.438)
+}
+
+.cards-body{
+  transition: 320ms ease;
+}
+.cards-body:hover {
+  transform: scale(1.08);
+}
+.cardsBtn{
+  transition: 500ms ease;
+}
+.cardsBtn:hover {
+  transform: scale(1.2);
 }
 </style>
