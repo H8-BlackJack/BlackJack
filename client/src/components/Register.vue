@@ -56,6 +56,7 @@ export default {
         }
       })
       .then(data=>{
+        this.$socket.emit('new-client', data);
         localStorage.setItem('name', data.data.name)
         localStorage.setItem('id', data.data.id)
         this.$router.push({

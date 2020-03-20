@@ -6,12 +6,17 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     rooms: null,
-    listPlayer: []
+    listPlayer: [],
+    userList: [],
   },
   mutations: {
     rooms(state, payload) {
       // console.log(payload)
       state.rooms = payload;
+    },
+    change_userList(state, payload) {
+      state.userList = payload.allUsers;
+      console.log('UserList:', state.userList)
     }
   },
   actions: {

@@ -15,6 +15,14 @@
     <h2 class="text-light text-center">{{namePlayer}}</h2>
   </div>
   <div>
+    <h3 class="text-light text-center">Online users:</h3>
+    <ul>
+      <li v-for="user in userList" :key="user.id" class="text-light text-center">
+        {{user.data.name}}
+      </li>
+    </ul>
+  </div>
+  <div>
     <b-card id="card">
       <h3 style="color : white;">Blackjack Room List</h3>
       <b-card id="card">
@@ -81,18 +89,35 @@ export default {
     rooms: function(){
       return this.$store.state.rooms
     },
+    userList() {
+      return this.$store.state.userList;
+    },
   },
   created(){
     console.log(this.$store.state.rooms)
     this.$store.dispatch('getRooms')
     this.$socket.on('fetchRoomUlang', () => {
-      console.log('masuk emitanny fetchRoomUlang')
+      console.log('enter emit fetchRoomUlang')
       this.$store.dispatch("getRooms")
     })
   },
   mounted() {
     this.playSound(sonic)
-  }
+
+    // after Vue renders, listen to events //
+
+    // When this client is connected to server //
+    this.$socket.on('user-connected', data => {
+      console.log('User connected!')
+      // this.$store.commit('change_isLogin', data)
+    });
+
+    // Updates the list of connected clients //
+    this.$socket.on('all-users', allUsers => {
+      console.log('User list updated!', allUsers)
+      this.$store.commit('change_userList', allUsers)
+    });
+  },
 }
 </script>
 
