@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(routing)
     let users = [];
+    let done = [];
 
 io.on("connection", function (socket) {
   console.log("a user connected");
@@ -28,7 +29,15 @@ io.on("connection", function (socket) {
   });
     socket.on("playGame", function() {
       io.emit("StartGame");
-    });
+  });
+  socket.on("doneGame", function(data) {
+    done.push(data)
+    console.log("ADA YANG DONE", done);
+    io.emit("done", done);
+  });
+  socket.on("leaveRoom", function () {
+    done = []
+  });
 })
 
 

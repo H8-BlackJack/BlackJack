@@ -23,6 +23,12 @@
       <b-card>
         <h1 class="text-center">Total Value : {{points}}</h1>
         <h1 class="text-center" v-if="lose"> {{text}}</h1>
+        <div v-for="player in board" :key="player.name">
+        <h1 class="text-center" v-if="lose || gamedone"> 
+          {{player.name}}
+          {{player.points}}
+        </h1>
+        </div>
       </b-card>
     </b-container>
   </div>
@@ -33,6 +39,7 @@ export default {
   name: 'Game',
   data() {
     return{
+      idParams: null, 
       cards: [],
       points: null,
       gabolehlagi: true,
@@ -45,10 +52,14 @@ export default {
       gamedone: false,
       losegame: false,
 // >>>>>>> e35522b74fc002d26fed9cc3daeeba4f225680fb
+      board: [],
     }
   },
   methods: {
     done(){
+      console.log(this.$route.params.id, "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJjjj");
+      this.idParams = this.$route.params.id
+      this.$socket.emit('doneGame', {points: this.points , name: localStorage.getItem('name')})
       this.gabolehlagi = false
 // <<<<<<< HEAD
       this.doneCount += 1
@@ -83,12 +94,13 @@ export default {
             this.points += Number(el.value)
           }
         })
-        if (this.points > 21) {
+        if (this.points > 21 || this.board.length === 2) {
           this.points = 0
           this.lose = true
           this.gabolehlagi=false
           this.gamedone = true
           this.losegame = true
+          this.done()
         }
       })
       .catch(({response})=>{
@@ -97,10 +109,29 @@ export default {
     },
     back() {
       this.$router.push('/lobby')
+      this.$socket.emit('leaveRoom')
+      this.$store.commit("removePlayers")
+      console.log(this.$route.params.id, "HAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhhh");
+      this.$axios({
+        url: `/rooms/${this.idParams}`,
+        method: "DELETE",
+      })
+      .then(data => {
+        this.$store.dispatch("getRooms")
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
     },
+    
   },
   created() {
    this.drawCard() 
+   this.$socket.on('done', (board) => {
+      console.log('BOARD HASIL', board);
+      this.board = board 
+    })
   }
 }
 </script>
@@ -110,11 +141,11 @@ export default {
     width: 150px;
   }
   #game {
-  /* position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   bottom: 0;
-  right: 0; */
+  right: 0;
   background: #8E0E00;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #1F1C18, #8E0E00);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
