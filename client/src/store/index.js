@@ -15,9 +15,11 @@ export default new Vuex.Store({
     },
     listPlayer(state, payload) {
       console.log(payload, " JANXUKKK")
-      state.listPlayer.push(payload)
+      state.listPlayer.push(payload);
       console.log(state.listPlayer, "BANGSUYY");
-      
+    },
+    removePLayers(state, payload) {
+      state.listPlayer.pop()
     }
   },
   actions: {
