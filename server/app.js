@@ -12,6 +12,7 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(routing)
+    let users = [];
 
 io.on("connection", function (socket) {
   console.log("a user connected");
@@ -19,9 +20,15 @@ io.on("connection", function (socket) {
       console.log("emit fethroomUland dr server");
       io.emit("fetchRoomUlang");
   });
-  socket.on("joinRoom", function(id) {
-    socket.join(id);
+  socket.on("joinRoom", function(data) {
+    socket.join(data.id);
+    users.push(data.user)
+    console.log("join ke room", data.user)
+    io.emit("playerJoin", data.user)
   });
+    socket.on("playGame", function() {
+      io.emit("StartGame");
+    });
 })
 
 
