@@ -11,6 +11,10 @@
     </b-card>
   </div>
   <div>
+    <h3 class="text-light text-center">Welcome to game</h3>
+    <h2 class="text-light text-center">{{namePlayer}}</h2>
+  </div>
+  <div>
     <b-card id="card">
       <h3 style="color : white;">Blackjack Room List</h3>
       <b-card id="card">
@@ -35,6 +39,7 @@ export default {
   data() {
     return {
       text: '',
+      namePlayer: localStorage.getItem("name")
     }
   },
   methods: {
@@ -47,7 +52,8 @@ export default {
         }
       })
       .then(data => {
-        console.log(data);
+        this.$socket.emit('createRoom')
+        console.log(data.data.name);
         this.$store.dispatch('getRooms')
         this.text = ''
       })
@@ -56,6 +62,7 @@ export default {
       })
     },
     enterRoom(id){
+      this.$socket.emit('createRoom')
       this.$router.push({
         path : `/waiting/${id}`
       })
@@ -78,6 +85,10 @@ export default {
   created(){
     console.log(this.$store.state.rooms)
     this.$store.dispatch('getRooms')
+    this.$socket.on('fetchRoomUlang', () => {
+      console.log('masuk emitanny fetchRoomUlang')
+      this.$store.dispatch("getRooms")
+    })
   },
   mounted() {
     this.playSound(sonic)
@@ -85,9 +96,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .wrap {
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
   bottom: 0;

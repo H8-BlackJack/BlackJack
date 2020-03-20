@@ -14,8 +14,10 @@
       </b-card>
       <b-card  style="background-color:rgba(0, 0, 0, 0.438)">
         <div class="d-flex justify-content-center">
+          <h4 style="color:white" v-if="losegame">You lost!</h4><br>
         <b-button variant="primary" class="mx-1" v-if="gabolehlagi" @click="drawCard()">Draw</b-button>
         <b-button variant="danger" class="mx-1" v-if="gabolehlagi" @click="done()">Done</b-button>
+        <b-button variant="secondary" class="mx-1" v-if="gamedone" @click="back()">Return to Lobby</b-button>
         </div>
       </b-card>
       <b-card>
@@ -36,11 +38,14 @@ export default {
       gabolehlagi: true,
       lose: false,
       text: "Oopss.. You lose!"
+      gamedone: false,
+      losegame: false,
     }
   },
   methods: {
     done(){
       this.gabolehlagi = false
+      this.gamedone = true
     },
     drawCard(){
         this.$axios({
@@ -73,12 +78,17 @@ export default {
           this.points = 0
           this.lose = true
           this.gabolehlagi=false
+          this.gamedone = true
+          this.losegame = true
         }
       })
       .catch(({response})=>{
         console.log(response);
       })
-    }
+    },
+    back() {
+      this.$router.push('/lobby')
+    },
   },
   created() {
    this.drawCard() 
@@ -91,11 +101,11 @@ export default {
     width: 150px;
   }
   #game {
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  right: 0;
+  right: 0; */
   background: #8E0E00;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #1F1C18, #8E0E00);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
