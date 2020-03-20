@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import sonic from '../assets/y2mate.com - Pirates of the Caribbean (Auckland Symphony Orchestra) 1080p_6zTc2hD2npA.mp3'
+
 export default {
   name: "Lobby",
   data() {
@@ -57,16 +59,28 @@ export default {
       this.$router.push({
         path : `/waiting/${id}`
       })
+    },
+    
+    playSound (sound) {
+      console.log('masukkkk heh');
+      
+    if(sound) {
+      var audio = new Audio(sound);
+      audio.play();
     }
+  }
   },
   computed: {
     rooms: function(){
       return this.$store.state.rooms
-    }
+    },
   },
   created(){
     console.log(this.$store.state.rooms)
     this.$store.dispatch('getRooms')
+  },
+  mounted() {
+    this.playSound(sonic)
   }
 }
 </script>
@@ -78,10 +92,13 @@ export default {
   left: 0;
   bottom: 0;
   right: 0;
-  background: #8E0E00;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #1F1C18, #8E0E00);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  /* background-image: url('../assets/lobby.jpg') */
+  /* background: #8E0E00;  fallback for old browsers */
+  /* background: -webkit-linear-gradient(to right, #1F1C18, #8E0E00);  Chrome 10-25, Safari 5.1-6 */
+  /* background: linear-gradient(to right, #1F1C18, #8E0E00); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-image: url('../assets/thumb-1920-794090.jpg');
+  /* width: 100%; */
+  /* background-image: url('../assets'); */
+  background-position: center;
 }
 #card {
   background-color: rgba(142, 14, 0, 0.315)

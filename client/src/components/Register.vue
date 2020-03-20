@@ -1,6 +1,10 @@
 <template>
     <div class="wrap d-flex justify-content-center align-items-center">
-        <h3 style="color : white">Welcome To</h3>
+ <h1 style="color: white">
+   WELCOME TO
+    <br>
+      <img src="../assets/vueblackjack.png" alt="" srcset="">
+   </h1>       
     <div class="middle">
       <b-container class="">
         <b-card class="rounded">
