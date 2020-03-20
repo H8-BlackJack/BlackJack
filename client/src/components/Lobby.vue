@@ -11,6 +11,10 @@
     </b-card>
   </div>
   <div>
+    <h3 class="text-light text-center">Welcome to game</h3>
+    <h2 class="text-light text-center">{{namePlayer}}</h2>
+  </div>
+  <div>
     <b-card id="card">
       <h3 style="color : white;">Blackjack Room List</h3>
       <b-card id="card">
@@ -33,6 +37,7 @@ export default {
   data() {
     return {
       text: '',
+      namePlayer: localStorage.getItem("name")
     }
   },
   methods: {
@@ -45,7 +50,8 @@ export default {
         }
       })
       .then(data => {
-        console.log(data);
+        this.$socket.emit('createRoom')
+        console.log(data.data.name);
         this.$store.dispatch('getRooms')
         this.text = ''
       })
@@ -54,6 +60,7 @@ export default {
       })
     },
     enterRoom(id){
+      this.$socket.emit('createRoom')
       this.$router.push({
         path : `/waiting/${id}`
       })
@@ -67,17 +74,21 @@ export default {
   created(){
     console.log(this.$store.state.rooms)
     this.$store.dispatch('getRooms')
+    this.$socket.on('fetchRoomUlang', () => {
+      console.log('masuk emitanny fetchRoomUlang')
+      this.$store.dispatch("getRooms")
+    })
   }
 }
 </script>
 
-<style>
+<style scoped>
   .wrap {
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  right: 0;
+  right: 0; */
   background: #8E0E00;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #1F1C18, #8E0E00);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */

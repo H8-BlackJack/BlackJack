@@ -11,6 +11,7 @@ Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
 Vue.config.productionTip = false
+Vue.prototype.$socket = io.connect("http://localhost:3000");
 Vue.prototype.$axios = axios.create({
   baseURL : 'http://localhost:3000'
 })

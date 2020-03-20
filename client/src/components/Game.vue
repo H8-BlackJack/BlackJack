@@ -86,11 +86,11 @@ export default {
     width: 150px;
   }
   #game {
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  right: 0;
+  right: 0; */
   background: #8E0E00;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #1F1C18, #8E0E00);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
