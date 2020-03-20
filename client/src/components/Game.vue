@@ -32,12 +32,15 @@ export default {
     return{
       cards: [],
       points: null,
-      gabolehlagi: true
+      gabolehlagi: true,
+      doneCount: 0,
+      totalPlayer: this.$store.state.listPlayer,
     }
   },
   methods: {
     done(){
       this.gabolehlagi = false
+      this.doneCount += 1
     },
     drawCard(){
         this.$axios({

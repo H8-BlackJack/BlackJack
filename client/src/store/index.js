@@ -12,6 +12,12 @@ export default new Vuex.Store({
     rooms(state, payload) {
       // console.log(payload)
       state.rooms = payload;
+    },
+    listPlayer(state, payload) {
+      console.log(payload, " JANXUKKK")
+      state.listPlayer.push(payload)
+      console.log(state.listPlayer, "BANGSUYY");
+      
     }
   },
   actions: {

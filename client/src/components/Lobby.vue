@@ -62,7 +62,7 @@ export default {
       })
     },
     enterRoom(id){
-      this.$socket.emit('createRoom')
+      this.$socket.emit('joinRoom', {id, user: localStorage.getItem('name')})
       this.$router.push({
         path : `/waiting/${id}`
       })

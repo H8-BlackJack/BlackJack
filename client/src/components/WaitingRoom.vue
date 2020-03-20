@@ -6,7 +6,7 @@
       {{player}}
     </b-card>
     </div>
-    <b-button @click.prevent="playGame" class="mt-3 ml-3 btn btn-warning">PLAY</b-button>
+    <b-button @click.prevent="playGame" v-if="players.length >=2" class="mt-3 ml-3 btn btn-warning">PLAY</b-button>
   </div>
 </template>
 
@@ -15,17 +15,55 @@ export default {
   name: "WaitingRoom",
   data() {
     return {
-      players: [],
+      players: this.$store.state.listPlayer,
     }
   },
   methods: {
     playGame() {
       this.$router.push({ path: `/game/${this.$route.params.id}`})
-    }
+        this.$socket.emit('playGame')
+    },
+  },
+  computed: {
+    // playerList() {
+    //   this.players = 
+    // }
   },
   created() {
-      this.players.push(localStorage.getItem('name'))
-  }
+      // this.players.push(localStorage.getItem('name'))
+      this.$socket.on('playerJoin', (user) => {
+      console.log(user,'masuk ke room')
+      // this.players.push(user)
+      this.$store.commit("listPlayer", user)
+      console.log(this.players, 'INI CUK');
+      console.log(this.$store.state.playerList, 'HAAAAA');
+      
+      // this.players = users
+      // console.log(users[0])
+      })
+      this.$socket.on('StartGame', () => {
+      // console.log(user,'masuk ke room')
+      // this.players.push(user)
+      // this.$store.commit("listPlayer", user)
+      console.log('PLAYGAME CUYY');
+      // console.log(this.$store.state.playerList, 'HAAAAA');
+      this.$router.push({ path: `/game/${this.$route.params.id}`})
+      // this.players = users
+      // console.log(users[0])
+      })
+  },
+  // watch: {
+  //   players() {
+  //     this.$socket.on('playerJoin', (user) => {
+  //     console.log(user,'masuk ke room')
+  //     this.players.push(user)
+  //     console.log(this.players, 'INI CUK');
+      
+  //     // this.players = users
+  //     // console.log(users[0])
+  //     })
+  //   }
+  // }
 }
 </script>
 
